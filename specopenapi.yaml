@@ -1,0 +1,831 @@
+openapi: 3.0.1
+info:
+  title: Delilah Restó
+  description: Documentación de la API REST de Delilah Restó.
+  contact:
+    email: delilahdev@gmail.com
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- url: https://delilah.resto.com.ar/
+- url: http://delilah.resto.com.ar/
+tags:
+- name: cliente
+  description: Operaciones relacionadas con los clientes
+- name: pedido
+  description: Acceso a la informacion de los pedidos
+- name: plato
+  description: Información sobre los platos ofrecidos
+- name: administrador
+  description: Acceso a la información de administración
+paths:
+  /plato:
+    get:
+      tags:
+      - plato
+      summary: Devuelve todos los platos del menú
+      description: Devuelve un listado con la información de la totalidad de los platos
+        que Delilah Restó ofrece al público.
+      operationId: obtenerPlatos
+      responses:
+        200:
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetListaPlatos'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - plato
+      summary: Subir nuevo plato
+      description: Agrega un nuevo plato a la base de datos
+      operationId: subirPlato
+      requestBody:
+        description: Objeto plato
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plato'
+        required: true
+      responses:
+        200:
+          description: Operacion exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exito'
+        400:
+          description: Falta información del plato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exito'
+      security:
+      - bearerAuth: []
+      x-codegen-request-body-name: body
+  /plato/{IdPlato}:
+    get:
+      tags:
+      - plato
+      summary: Encuentra un plato por ID
+      description: Devuelve un determinado plato con toda su información.
+      operationId: obtenerPlatoPorId
+      parameters:
+      - name: IdPlato
+        in: path
+        description: ID del plato buscado
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plato'
+        400:
+          description: ID inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Plato no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - plato
+      summary: Actualizar un plato
+      description: Actualiza el nombre, el precio y/o el estado de un plato existente
+        del menú.
+      operationId: actualizarPlato
+      parameters:
+      - name: IdPlato
+        in: path
+        description: ID del plato buscado
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Objeto plato
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plato'
+        required: true
+      responses:
+        200:
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exito'
+        400:
+          description: ID inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Plato no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+      x-codegen-request-body-name: body
+  /pedido:
+    post:
+      tags:
+      - pedido
+      summary: Subir un pedido
+      description: Se sube el pedido de un cliente con los platos/comidas requeridos.
+      operationId: subirPedido
+      requestBody:
+        description: Objeto con la información del pedido de un determinado cliente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PedidoSinID'
+        required: true
+      responses:
+        200:
+          description: Operacion exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exito'
+        400:
+          description: Falta información en el pedido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exito'
+      security:
+      - bearerAuth: []
+      x-codegen-request-body-name: body
+  /pedido/estado/{IdPedido}:
+    get:
+      tags:
+      - pedido
+      summary: Devuelve el estado de un pedido
+      description: 'Se obtiene el estado de un pedido desde la sección de administración.
+        El pedido puede ser/estar: nuevo, en preparación, en camino, entregado o cancelado'
+      operationId: obtenerEstado
+      parameters:
+      - name: IdPedido
+        in: path
+        description: ID del pedido
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstadoPedido'
+        400:
+          description: ID inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Pedido no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - pedido
+      summary: Actualiza el estado de un pedido
+      description: 'Actualiza el pedido a alguno de los siguientes estados: nuevo,
+        en preparación, en camino, entregado o cancelado'
+      operationId: actualizarPedido
+      parameters:
+      - name: IdPedido
+        in: path
+        description: ID del pedido
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Objeto con el estado nuevo del pedido
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstadoPedido'
+        required: true
+      responses:
+        200:
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exito'
+        400:
+          description: ID inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Pedido no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+      x-codegen-request-body-name: body
+  /pedido/favoritos/{IdCliente}:
+    get:
+      tags:
+      - pedido
+      summary: Platos favoritos
+      description: Devuelve una lista de platos previamente pedidos por un determinada
+        cliente
+      operationId: obtenerPedidosUsuario
+      parameters:
+      - name: IdCliente
+        in: path
+        description: ID del cliente
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaPlatos'
+        400:
+          description: ID inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: El cliente no realizó pedidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+  /pedido/{IdPedido}:
+    get:
+      tags:
+      - pedido
+      summary: Devuelve un pedido determinado
+      description: Devuelve el contenido y la descripción de un determinado pedido
+      operationId: obtenerPedidoPorId
+      parameters:
+      - name: IdPedido
+        in: path
+        description: ID del pedido buscado
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetExitosoPedido'
+        400:
+          description: ID inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Pedido no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+  /cliente/{IdCliente}:
+    get:
+      tags:
+      - cliente
+      summary: Obtener cliente por su ID
+      operationId: obtenerCliente
+      parameters:
+      - name: IdCliente
+        in: path
+        description: ID del cliente buscado
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetExitosoCliente'
+        400:
+          description: ID inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Cliente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - cliente
+      summary: Actualizar estado cliente por su ID
+      description: Permite la actualización del estado de un cliente entre activo
+        o eliminado
+      operationId: actualizarCliente
+      parameters:
+      - name: IdCliente
+        in: path
+        description: ID del cliente buscado
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Objeto con el estado del cliente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstadoCliente'
+        required: true
+      responses:
+        200:
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exito'
+        400:
+          description: ID inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Cliente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+      x-codegen-request-body-name: body
+  /cliente/registro:
+    post:
+      tags:
+      - cliente
+      summary: Crear un cliente nuevo
+      description: 'Si el cliente no se encuentra previamente registrado, debe ingresar por única vez: username, nombre completo, email, telefono, direccion y password.'
+      operationId: crearCliente
+      requestBody:
+        description: Objeto cliente creado
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+        required: true
+      responses:
+        200:
+          description: Registro exitoso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exito'
+        409:
+          description: El usuario ya se encuentra registrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+      x-codegen-request-body-name: body
+  /cliente/login:
+    post:
+      tags:
+      - cliente
+      summary: Loguea al cliente
+      description: El cleinte registrado debe loguearse ingresando username o email
+        y password. Si la operación es exitosa, le será devuelto un token de autorización
+        para próximas operaciones.
+      operationId: loginCliente
+      requestBody:
+        description: Objeto con los datos de logueo del cliente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+        required: true
+      responses:
+        200:
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogInExitoso'
+        404:
+          description: Usuario y/o contraseña invalido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+      x-codegen-request-body-name: body
+  /administracion:
+    get:
+      tags:
+      - administrador
+      summary: Devuelve información para el administrador
+      description: Devuelve un array con toda la información de los pedidos realizados en el día
+      operationId: infoAdmin
+      responses:
+        200:
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListaAdmin'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:            
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ListaAdmin:
+      type: array
+      items:
+          $ref: "#/components/schemas/PedidoAdmin"
+    PedidoAdmin:
+      type: object
+      properties:
+        estado_pedido:
+          type: string
+          description: Estado del pedido
+          enum:
+          - nuevo
+          - en preparación
+          - en camino
+          - entregado
+          - cancelado
+        hora_pedido: 
+          type: string
+        id_pedido: 
+          type: number
+        descripcion:
+          type: string
+        tipo_pago: 
+          type: string
+          description: Tipo de pago utilizado por el cliente
+          enum:
+          - efectivo
+          - debito
+          - credito
+        total:
+          type: number
+        username:
+          type: string
+        nombre_completo:
+          type: string
+        email:
+          type: string
+        telefono:
+          type: string
+        direccion:
+          type: string
+    Login:
+      type: object
+      properties:
+        username_o_email:
+          type: string
+          description: Username o email
+        password:
+          type: string
+    Cliente:
+      type: object
+      properties:
+        username:
+          type: string
+        nombre_completo:
+          type: string
+        email:
+          type: string
+        telefono:
+          type: string
+        direccion:
+          type: string
+        password:
+          type: string
+          format: password
+    UsuarioPublico:
+      type: object
+      properties:
+        username:
+          type: string
+        nombre_completo:
+          type: string
+        email:
+          type: string
+        telefono:
+          type: string
+        direccion:
+          type: string
+    PedidoConID:
+      type: object
+      properties:
+        id_pedido:
+          type: integer
+        id_usuario:
+          type: integer
+        id_platos:
+          type: array
+          items:
+            type: integer
+        cantidad:
+          type: array
+          items:
+            type: integer
+        fecha:
+          type: string
+          format: date-time
+        tipo_pago:
+          type: string
+          description: Tipos de pago disponbles
+          enum:
+          - efectivo
+          - debito
+          - credito
+        total:
+          type: number
+        estado:
+          type: string
+          description: Estado del pedido
+          enum:
+          - nuevo
+          - en preparación
+          - en camino
+          - entregado
+          - cancelado
+    PedidoSinID:
+      type: object
+      properties:
+        id_usuario:
+          type: integer
+        id_platos:
+          type: array
+          items:
+            type: integer
+        cantidad:
+          type: array
+          items:
+            type: integer
+        fecha:
+          type: string
+          format: date-time
+        tipo_pago:
+          type: string
+          description: Tipos de pago disponbles
+          enum:
+          - efectivo
+          - debito
+          - credito
+        total:
+          type: number
+        estado:
+          type: string
+          description: Estado del pedido
+          enum:
+          - nuevo
+          - en preparación
+          - en camino
+          - entregado
+          - cancelado
+    Plato:
+      type: object
+      properties:
+        nombre:
+          type: string
+        precio:
+          type: number
+        estado:
+          type: string
+          description: Estado del plato
+          enum:
+          - activo
+          - discontinuado
+    GetListaPlatos:
+      type: object
+      properties:
+        error:
+          type: boolean
+        codigo:
+          type: number
+        mensaje:
+          type: string
+        respuesta:
+          $ref: '#/components/schemas/ListaPlatos'
+    GetExitosoPedido:
+      type: object
+      properties:
+        error:
+          type: boolean
+        codigo:
+          type: number
+        mensaje:
+          type: string
+        respuesta:
+          $ref: '#/components/schemas/RespuestaPedidoConID'
+    GetExitosoCliente:
+      type: object
+      properties:
+        error:
+          type: boolean
+        codigo:
+          type: number
+        mensaje:
+          type: string
+        respuesta:
+          $ref: '#/components/schemas/UsuarioPublico'
+    LogInExitoso:
+      type: object
+      properties:
+        error:
+          type: boolean
+        codigo:
+          type: number
+        mensaje:
+          type: string
+        respuesta:
+          $ref: '#/components/schemas/Token'
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+        administrador:
+          type: boolean
+    ListaPlatos:
+      type: array
+      items:
+        $ref: '#/components/schemas/Plato'
+    RespuestaPedidoConID:
+      type: array
+      items:
+        $ref: '#/components/schemas/PedidoConID'
+    Error:
+      type: object
+      properties:
+        error:
+          type: boolean
+        codigo:
+          type: number
+        mensaje:
+          type: string
+    Exito:
+      type: object
+      properties:
+        error:
+          type: boolean
+        codigo:
+          type: number
+        mensaje:
+          type: string
+    EstadoPedido:
+      type: object
+      properties:
+        id_pedido:
+          type: integer
+        id_usuario:
+          type: integer
+        estado:
+          type: string
+    EstadoCliente:
+      type: object
+      properties:
+        estado:
+          type: string
+          description: Estado del cliente
+          enum:
+          - activo
+          - eliminado
