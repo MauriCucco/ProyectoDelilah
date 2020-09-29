@@ -1,15 +1,15 @@
-const { checkUser } = require("../../models/usuario");
-const validarCampos = require("../../models/validarCampos");
+const { verifyUser } = require("../../models/usuario");
+const validarCamposUsuario = require("../../models/validarCamposUsuario");
 
-function verificarUsuario(req, res, next) {
+function verificarUsuarioNuevo(req, res, next) {
 
     const newUser = ({username, nombre_completo, email, telefono, direccion, password} = req.body); //desestructuré las propiedades del req.body y creé un objeto nuevo
 
-    if(Object.keys(newUser).length === 6) { //hay 6 propiedades en newUser
+    if(newUser && Object.keys(newUser).length === 6) { //hay 6 propiedades en newUser
 
-        if(validarCampos(newUser)) { //los valores de los campos son válidos
+        if(validarCamposUsuario(newUser)) { //los valores de los campos son válidos
         
-            checkUser(newUser.username, newUser.email) //chequeo que no haya un usuario con el mismo username e imail registrado
+            verifyUser(newUser.username, newUser.email) //chequeo que no haya un usuario con el mismo username e imail registrado
             .then(([response]) => {
                 
                 if(response === undefined) {
@@ -39,4 +39,4 @@ function verificarUsuario(req, res, next) {
 
 }
 
-module.exports = verificarUsuario;
+module.exports = verificarUsuarioNuevo;

@@ -1,9 +1,9 @@
 require("dotenv").config()
 
-const token = process.env.TKS;
+const jwtClave = process.env.TKS;
 const puerto = process.env.PORT;
 
 module.exports = {
-    token,
+    jwtClave,
     puerto
 }

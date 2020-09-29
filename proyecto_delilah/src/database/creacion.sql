@@ -22,9 +22,9 @@ CREATE TABLE usuarios (
 CREATE TABLE pedidos (
     id_pedido int(11) AUTO_INCREMENT NOT NULL,
     id_usuario1 int(11) NOT NULL,
-    fecha timestamp NOT NULL NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     tipo_pago enum("efectivo", "debito", "credito") NOT NULL,
-    total decimal(5,2) unsigned NOT NULL,
+    total decimal(8,2) unsigned NOT NULL,
     estado_pedido enum("nuevo", "en preparacion", "en camino", "entregado", "cancelado") NULL DEFAULT "nuevo",
 
     primary key(id_pedido)
@@ -34,7 +34,7 @@ CREATE TABLE pedidos (
 CREATE TABLE platos (
     id_plato int(11) AUTO_INCREMENT NOT NULL,
     nombre_plato varchar(36) NOT NULL,
-    precio decimal(4,2) unsigned NOT NULL,
+    precio decimal(8,2) unsigned NOT NULL,
     estado_plato enum("H", "E") NULL DEFAULT "H",
 
     primary key(id_plato)
