@@ -65,7 +65,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Exito'
         400:
-          description: Falta información en el pedido
+          description: Formulario incompleto y/o con errores
           content:
             application/json:
               schema:
@@ -150,7 +150,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         404:
-          description: El cliente no realizó pedidos
+          description: No se encontraron platos favoritos
           content:
             application/json:
               schema:
@@ -183,9 +183,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Exito'
-        409:
-          description: El usuario ya se encuentra registrado
+                $ref: '#/components/schemas/ExitoPostUsuario'
+        400:
+          description: Formulario incompleto y/o con errores
           content:
             application/json:
               schema:
@@ -217,8 +217,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LogInExitoso'
+        400:
+          description: Formulario incompleto y/o con errores
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         404:
-          description: Los datos ingresados son incorrectos
+          description: Usuario no econtrado
           content:
             application/json:
               schema:
@@ -293,7 +299,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Exito'
         400:
-          description: ID inválido
+          description: Datos ingresados incorrectos
           content:
             application/json:
               schema:
@@ -600,23 +606,14 @@ components:
     LogInExitoso:
       type: object
       properties:
-        error:
-          type: boolean
-        codigo:
-          type: number
         mensaje:
           type: string
-        respuesta:
-          $ref: '#/components/schemas/Respuesta'
-    Respuesta:
-      type: object
-      properties:
         token:
           type: string
+        id_usuario:
+          type: integer  
         administrador:
           type: boolean
-        id_usuario:
-          type: integer
     ListaPlatos:
       type: array
       items:
@@ -629,12 +626,13 @@ components:
     Exito:
       type: object
       properties:
-        error:
-          type: boolean
-        codigo:
-          type: number
         mensaje:
           type: string
+    ExitoPostUsuario:
+      type: object
+      properties:
+        id:
+          type: integer
     EstadoPedido:
       type: object
       properties:

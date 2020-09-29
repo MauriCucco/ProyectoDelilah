@@ -1,8 +1,8 @@
-const { getAllPlatos } = require("../../models/plato");
+const { getAllPlates } = require("../../models/plato");
 
 function obtenerPlatos(req, res) {
 
-    getAllPlatos()
+    getAllPlates()
     .then(response => res.status(200).send(response))
     .catch(e => {
         console.log(e);
