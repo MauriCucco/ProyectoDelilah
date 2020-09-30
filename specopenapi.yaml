@@ -35,6 +35,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetListaPlatos'
+        401:
+          description: No se encontró ningún token de autorización
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         500:
           description: Error del servidor
           content:
@@ -66,6 +72,12 @@ paths:
                 $ref: '#/components/schemas/Exito'
         400:
           description: Formulario incompleto y/o con errores
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: No se encontró ningún token de autorización
           content:
             application/json:
               schema:
@@ -103,6 +115,12 @@ paths:
                 $ref: '#/components/schemas/EstadoPedido'
         400:
           description: ID inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: No se encontró ningún token de autorización
           content:
             application/json:
               schema:
@@ -145,6 +163,12 @@ paths:
                 $ref: '#/components/schemas/ListaPlatos'
         400:
           description: ID inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: No se encontró ningún token de autorización
           content:
             application/json:
               schema:
@@ -256,6 +280,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetExitosoUsuario'
+        401:
+          description: No se encontró ningún token de autorización
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         404:
           description: Usuario no encontrado 
           content:
@@ -304,6 +334,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        401:
+          description: No se encontró ningún token de autorización
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         404:
           description: Usuario no encontrado
           content:
@@ -333,6 +369,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListaAdmin'
+        401:
+          description: No se encontró ningún token de autorización
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         500:
           description: Error del servidor
           content:
@@ -364,6 +406,12 @@ paths:
                   $ref: '#/components/schemas/Exito'
           400:
             description: Falta información del plato
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+          401:
+            description: No se encontró ningún token de autorización
             content:
               application/json:
                 schema:
@@ -412,6 +460,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        401:
+            description: No se encontró ningún token de autorización
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
         404:
           description: Plato no encontrado
           content:
@@ -462,6 +516,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        401:
+            description: No se encontró ningún token de autorización
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
         404:
           description: Pedido no encontrado
           content:

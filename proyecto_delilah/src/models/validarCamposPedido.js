@@ -7,25 +7,23 @@ function validarCamposPedido(objeto) {
 
         return false;
 
-    }else if(isNaN(objeto.id_pedido1) //que sean numeros
-             || isNaN(objeto.descripcion.id_plato1)
-             || isNaN(objeto.descripcion.cantidad)
+    }else if(isNaN(objeto.id_usuario1) //que sean numeros
              || isNaN(objeto.total)) {
-
+        
         return false;
 
     }else if(!Array.isArray(objeto.descripcion)){ //que sea un array
         
         return false;
 
-    }else if(objeto.tipo_pago !== "efectivo"
-             || objeto.tipo_pago !== "debito"
-             || objeto.tipo_pago !== "credito") {
+    }else if((objeto.tipo_pago === "efectivo")
+             || (objeto.tipo_pago === "debito")
+             || (objeto.tipo_pago === "credito")) {
 
-        return false;
+        return true;
     } 
 
-    return true;
+    return false;
 }
 
 module.exports = validarCamposPedido;

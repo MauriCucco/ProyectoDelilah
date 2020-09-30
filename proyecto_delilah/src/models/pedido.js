@@ -4,7 +4,10 @@ const newOrder = (arrayPedidoNuevo) => sequelize.query("INSERT INTO pedidos (id_
 
 const stateOrder = (id_pedido) => sequelize.query("SELECT estado_pedido FROM pedidos WHERE id_pedido = ?", { replacements: [id_pedido], type: sequelize.QueryTypes.SELECT});
 
+const deleteOrder = (id_pedido) => sequelize.query("DELETE FROM pedidos WHERE id_pedido = ?", { replacements: [id_pedido], type: sequelize.QueryTypes.DELETE});
+
 module.exports = {
     newOrder,
-    stateOrder
+    stateOrder,
+    deleteOrder
 }

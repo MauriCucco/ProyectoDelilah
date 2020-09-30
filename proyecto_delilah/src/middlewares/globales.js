@@ -3,7 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const helmet = require('helmet');
 const rateLimit = require("express-rate-limit");
-const config = require("../config/config.js"); //importo la key
+const { jwtClave } = require("../config/config.js"); //importo la key
 
 
 let limiter = rateLimit({
@@ -24,5 +24,5 @@ module.exports = function(app) {
 
     //app.use(limiter);
 
-    //app.use(expressJwt({ secret: config.token, algorithms: ["HS256"]}).unless({path: ['/usuario/login', "/usuario/registro"]}));
+    //app.use(expressJwt({ secret: jwtClave, algorithms: ["HS256"]}).unless({path: ['/usuarios/login', "/usuarios/registro"]}));
 }

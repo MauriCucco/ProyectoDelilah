@@ -1,6 +1,7 @@
 const { getInfoUser } = require("../../models/usuario");
 
-const obtenerInfoUsuario = (req, res) =>
+const obtenerInfoUsuario = (req, res) => {
+
     getInfoUser(req.params.IdUsuario)
     .then(([response]) => { //desestructuro el response de la bd para que no devuelva un array
 
@@ -16,7 +17,7 @@ const obtenerInfoUsuario = (req, res) =>
         console.log(e);
         res.status(500).send({error: "Error del servidor"});
     })
-
+}
 module.exports = obtenerInfoUsuario;
 
 
