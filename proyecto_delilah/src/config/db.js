@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize("mariadb://root@localhost:3306/delilahresto");
+const { host, user, dbPort, database } = require("../config/config")
+const sequelize = new Sequelize(`mariadb://${user}@${host}:${dbPort}/${database}`);
 
 sequelize.authenticate() //para verificar la conexión con la base de datos
 .then(resultado => 
