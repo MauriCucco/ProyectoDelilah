@@ -2,13 +2,12 @@ const { newUser } = require("../../models/usuario");
 
 function crearUsuario(req, res) {
 
-    const arrayUsuarioNuevo = Object.values(req.body); //devuelve un array con las propiedades de un objeto
+    const arrayUsuarioNuevo = Object.values(req.body); //devuelve un array con las valores de un objeto
 
     newUser(arrayUsuarioNuevo)
     .then(response => {
 
-        console.log(response);
-        res.status(200).send({id: response[0]}); //devuelvo el id del nuevo usuario
+        res.status(200).send({mensaje: "Usuario registrado con éxito"}); 
     })
     .catch(e => {
 

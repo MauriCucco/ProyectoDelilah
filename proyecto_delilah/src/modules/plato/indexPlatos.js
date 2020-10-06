@@ -5,6 +5,6 @@ const obtenerPlatosFavoritos = require("../../controllers/plato/obtenerPlatosFav
 
 //subrutas de /platos
 plato.get("/", obtenerPlatos);
-plato.get("/favoritos/:IdUsuario", obtenerPlatosFavoritos);
+plato.get("/favoritos", obtenerPlatosFavoritos);
 
 module.exports = plato;

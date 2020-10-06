@@ -1,10 +1,10 @@
 function validarEstado(req, res, next) {
 
-    let estado = req.body.estado_usuario;
+    const { estado_usuario } = req.body;
 
-    if(estado && estado === "E" || estado && estado ==="H") {
+    if(estado_usuario && estado_usuario === "E") {
 
-        return next();
+        next();
 
     }else {
 

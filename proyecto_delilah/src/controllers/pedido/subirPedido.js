@@ -9,22 +9,22 @@ async function subirPedido(req, res) {
 
         const begin = await beginOrder(); //inicio la transacción
 
-        const result = await newOrder([id_usuario1, tipo_pago, total]); //insert del pedido
+        const result = await newOrder([id_usuario1, tipo_pago, total]); //INSERT del pedido
 
-        const id_pedido1 = result[0];
+        const id_pedido1 = result[0]; //
 
         descripcion.forEach( element => element["id_pedido1"] = id_pedido1); //le sumo el id del pedido
 
         for(let i=0; i< descripcion.length; i++) { //con un forEach no funciona
         
-            let insert = await newDishesNumber(Object.values(descripcion[i]));
+            let insert = await newDishesNumber(Object.values(descripcion[i])); //INSERT en cantidad_platos
 
             console.log(insert); 
         };
 
         const commit = await commitOrder();
 
-        res.status(200).send({mensaje: "Pedido subido con éxito"});
+        res.status(200).send({mensaje: "Pedido subido con éxito", id_pedido: id_pedido1});
         
     }catch (error) {
 

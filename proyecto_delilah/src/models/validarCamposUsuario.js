@@ -23,7 +23,7 @@ function validarCamposUsuario(objeto) {
 
     if(arrayUser.length === 2) {
 
-        if(esTipoMail.test(objeto.username_o_email)) {
+        if(esTipoMail.test(objeto.username_o_email)) { //si tiene un @
 
             if(!regexEmail.test(objeto.username_o_email)) {
 

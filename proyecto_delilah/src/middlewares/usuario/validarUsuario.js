@@ -17,18 +17,16 @@ function validarUsuario (req, res, next) {
             validateUser(username_o_email, password)
 
             .then(([response]) => {
-            
-                console.log(response);
 
                 if(response === undefined) {
 
-                    return res.status(404).send({error: "Usuario no encontrado"});
+                    res.status(401).send({error: "Usuario no encontrado"});
 
                 }else {
 
-                    req.body = response;
+                    req.infoUsuario = response; //guardo la informacion que voy a necesitar después
 
-                    return next();
+                    next();
                 }
             })
             .catch(e => {
@@ -39,12 +37,12 @@ function validarUsuario (req, res, next) {
 
         }else {
 
-            return res.status(422).send({error: "Hay uno o más campos inválidos"});
+            res.status(422).send({error: "Hay uno o más campos inválidos"});
         }
         
     }else {
 
-        return res.status(422).send({error: "Ingrese todos los datos solicitados"});
+        res.status(422).send({error: "Ingrese todos los datos solicitados"});
     }
 }
 

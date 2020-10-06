@@ -2,15 +2,10 @@ const { stateOrder } = require("../../models/pedido");
 
 function obtenerEstadoPedido(req, res) {
 
-    stateOrder(req.params.IdPedido)
+    stateOrder(req.body.id_pedido)
     .then(([response]) =>  {
 
-        if(response === undefined) {
-
-            return res.status(404).send({mensaje: "Pedido no encontrado"});
-        }
-
-        res.status(200).send(response);
+        response === undefined? res.status(404).send({mensaje: "Pedido no encontrado"}) : res.status(200).send(response);
     })
     .catch(e => {
         console.log(e);

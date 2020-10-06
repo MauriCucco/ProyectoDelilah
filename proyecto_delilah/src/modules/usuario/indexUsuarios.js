@@ -1,7 +1,6 @@
 const express = require("express");
 const usuario = express.Router();
-const obtenerInfoUsuario = require("../../controllers/usuario/obtenerInfoUsuario");
-const actualizarUsuario = require("../../controllers/usuario/actualizarUsuario");
+const eliminarUsuario = require("../../controllers/usuario/eliminarUsuario");
 const crearUsuario = require("../../controllers/usuario/crearUsuario");
 const loginUsuario = require("../../controllers/usuario/loginUsuario");
 const validarEstado = require("../../middlewares/usuario/validarEstado");
@@ -9,8 +8,7 @@ const verificarUsuarioNuevo = require("../../middlewares/usuario/verificarUsuari
 const validarUsuario = require("../../middlewares/usuario/validarUsuario");
 
 //subrutas de /usuarios
-usuario.get("/:IdUsuario", obtenerInfoUsuario);
-usuario.put("/:IdUsuario", validarEstado, actualizarUsuario);
+usuario.put("/delete", validarEstado, eliminarUsuario);
 usuario.post("/registro", verificarUsuarioNuevo, crearUsuario);
 usuario.post("/login", validarUsuario, loginUsuario);
 

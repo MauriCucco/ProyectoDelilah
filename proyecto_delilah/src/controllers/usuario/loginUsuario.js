@@ -1,17 +1,12 @@
-const jwt = require("jsonwebtoken");
-const { jwtClave } = require("../../config/config")
+const crearToken = require("../../models/crearToken");
 
-function loginUsuario(req, res) {
+async function loginUsuario(req, res) {
 
-    const {id_usuario, administrador} = req.body;
+    const {id_usuario, nombre_completo, direccion, administrador} = req.infoUsuario;
 
-    const token = jwt.sign({
-        check: true,
-        id_usuario,
-        administrador
-    }, jwtClave);
+    const token = crearToken({id_usuario, administrador});
 
-    res.status(200).send({mensaje: "Autenticación exitosa", token, id_usuario, administrador});
+    res.status(200).send({mensaje: "Autenticación exitosa", token, nombre_completo, direccion, administrador});
 }
 
 module.exports = loginUsuario;

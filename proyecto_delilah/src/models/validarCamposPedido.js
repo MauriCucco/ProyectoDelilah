@@ -3,20 +3,20 @@ function validarCamposPedido(objeto) {
     const arrayPedido = Object.values(objeto);
     const index = arrayPedido.findIndex( elem => elem === "");
 
-    if(index >= 0) { //que no vengan vacios
+    if(index >= 0) { //si alguún campo está vacío
 
         return false;
 
-    }else if(isNaN(objeto.id_usuario1) //que sean numeros
+    }else if(isNaN(objeto.id_usuario1) //si no son números
              || isNaN(objeto.total)) {
         
         return false;
 
-    }else if(!Array.isArray(objeto.descripcion)){ //que sea un array
+    }else if(!Array.isArray(objeto.descripcion)){ //si NO sea un array
         
         return false;
 
-    }else if(Array.isArray(objeto.descripcion)){
+    }else if(Array.isArray(objeto.descripcion)){ //si es un array
 
         const arrayPropiedades = objeto.descripcion.map(element => Object.keys(element));
 

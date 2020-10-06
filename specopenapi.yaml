@@ -13,7 +13,7 @@ servers:
 - url: http://delilah.resto.com.ar/
 tags:
 - name: usuario
-  description: Operaciones de registro y login de los usuarios
+  description: Operaciones relacionadas con los usuarios
 - name: pedido
   description: Acceso a la informacion de los pedidos
 - name: plato
@@ -54,7 +54,7 @@ paths:
       tags:
       - pedido
       summary: Subir un pedido nuevo
-      description: Se sube el pedido de un cliente con los plato/s requeridos y la información de la transacción
+      description: Se sube el pedido de un usuario con el/los plato/s requeridos y la información de la transacción.
       operationId: subirPedido
       requestBody:
         description: Objeto con la información del pedido de un determinado cliente
@@ -69,7 +69,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Exito'
+                $ref: '#/components/schemas/ExitoPedido'
         401:
           description: No se encontró ningún token de autorización
           content:
@@ -77,7 +77,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         422:
-          description: Formulario incompleto y/o con errores
+          description: Formulario del pedido incompleto y/o con errores
           content:
             application/json:
               schema:
@@ -91,21 +91,20 @@ paths:
       security:
       - bearerAuth: []
       x-codegen-request-body-name: body
-  /pedidos/estado/{IdPedido}:
-    get:
+  /pedidos/estado:
+    post:
       tags:
       - pedido
       summary: Obtener el estado de un pedido
-      description: El pedido puede estar confirmado, en preparación, en camino o entregado
+      description: El pedido puede estar confirmado, en preparación, en camino o entregado.
       operationId: obtenerEstado
-      parameters:
-      - name: IdPedido
-        in: path
-        description: ID del pedido
+      requestBody:
+        description: Objeto con el ID del pedido
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdPedido'
         required: true
-        schema:
-          type: integer
-          format: int64
       responses:
         200:
           description: Operación exitosa
@@ -126,7 +125,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         422:
-          description: ID inválido
+          description: El id del pedido es inválido
           content:
             application/json:
               schema:
@@ -139,28 +138,20 @@ paths:
                 $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
-  /platos/favoritos/{IdCliente}:
+  /platos/favoritos:
     get:
       tags:
       - plato
       summary: Obtener platos favoritos de un usuario
       description: Devuelve una lista con los platos previamente pedidos por un determinado usuario
       operationId: obtenerPlatosFav
-      parameters:
-      - name: IdCliente
-        in: path
-        description: ID del cliente
-        required: true
-        schema:
-          type: integer
-          format: int64
       responses:
         200:
           description: Operación exitosa
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListaPlatos'
+                $ref: '#/components/schemas/GetPlatosFavoritos'
         401:
           description: No se encontró ningún token de autorización
           content:
@@ -169,12 +160,6 @@ paths:
                 $ref: '#/components/schemas/Error'
         404:
           description: No se encontraron platos favoritos
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        422:
-          description: ID inválido
           content:
             application/json:
               schema:
@@ -207,9 +192,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExitoPostUsuario'
+                $ref: '#/components/schemas/Exito'
         422:
-          description: Formulario incompleto y/o con errores
+          description: Formulario de registro incompleto y/o con errores
           content:
             application/json:
               schema:
@@ -224,7 +209,7 @@ paths:
     post:
       tags:
       - usuario
-      summary: Loguear al usuario
+      summary: Loguear a un usuario
       description: Una vez registrado, el usuario debe loguearse ingresando username o email y password. Si la operación es exitosa, le será devuelto un token de autorización para próximas operaciones.
       operationId: loginUsuario
       requestBody:
@@ -241,7 +226,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LogInExitoso'
-        404:
+        401:
           description: Usuario no econtrado
           content:
             application/json:
@@ -259,61 +244,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /usuarios/{IdUsuario}:
-    get:
-      tags:
-      - usuario
-      summary: Obtener información de un usuario por su ID
-      operationId: obtenerInfoUsuario
-      parameters:
-      - name: IdUsuario
-        in: path
-        description: ID del usuario buscado
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        200:
-          description: Operación exitosa
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetExitosoUsuario'
-        401:
-          description: No se encontró ningún token de autorización
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        404:
-          description: Usuario no encontrado 
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        500:
-          description: Error del servidor 
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-      security:
-      - bearerAuth: []
+  /usuarios/delete:
     put:
       tags:
       - usuario
-      summary: Actualizar el estado de un usuario por su ID
-      description: Permite la actualización del estado de un usuario entre activo o eliminado
+      summary: Eliminar un usuario
+      description: Elimina al usuario previamente logueado.
       operationId: actualizarUsuario
-      parameters:
-      - name: IdUsuario
-        in: path
-        description: ID del usuario buscado
-        required: true
-        schema:
-          type: integer
-          format: int64
       requestBody:
         description: Objeto con el estado del cliente
         content:
@@ -330,12 +267,6 @@ paths:
                 $ref: '#/components/schemas/Exito'
         401:
           description: No se encontró ningún token de autorización
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        404:
-          description: Usuario no encontrado
           content:
             application/json:
               schema:
@@ -657,21 +588,13 @@ components:
     GetListaPlatos:
       type: object
       properties:
-        error:
-          type: boolean
-        codigo:
-          type: number
-        mensaje:
-          type: string
-        respuesta:
+        platos:
           $ref: '#/components/schemas/ListaPlatos'
-    GetExitosoUsuario:
+    GetPlatosFavoritos:
       type: object
       properties:
-        nombre_completo:
-          type: string
-        direccion:
-          type: string
+        favoritos:
+          $ref: '#/components/schemas/ListaPlatos'
     LogInExitoso:
       type: object
       properties:
@@ -679,8 +602,10 @@ components:
           type: string
         token:
           type: string
-        id_usuario:
-          type: integer  
+        nombre_completo:
+          type: string  
+        direccion:
+          type: string
         administrador:
           type: boolean
     ListaPlatos:
@@ -697,10 +622,22 @@ components:
       properties:
         mensaje:
           type: string
-    ExitoPostUsuario:
+    ExitoPedido:
       type: object
       properties:
-        id:
+        mensaje:
+          type: string
+        id_pedido:
+          type: integer
+    IdUsuario:
+      type: object
+      properties:
+        id_usuario:
+          type: integer
+    IdPedido:
+      type: object
+      properties:
+        id_pedido:
           type: integer
     EstadoPedido:
       type: object
@@ -719,7 +656,6 @@ components:
       properties:
         estado_usuario:
           type: string
-          description: Estado del cliente
+          description: Estado eliminado del cliente
           enum:
-          - H
           - E
