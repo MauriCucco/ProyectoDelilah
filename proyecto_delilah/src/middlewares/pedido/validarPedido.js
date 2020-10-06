@@ -12,12 +12,12 @@ function validarPedido(req, res, next) {
 
         }else {
 
-            return res.status(400).send({error: "Hay uno o más campos inválidos"});
+            return res.status(422).send({error: "Hay uno o más campos inválidos"});
         }
 
     }else {
 
-        return res.status(400).send({error: "El pedido está incompleto"});
+        return res.status(422).send({error: "El pedido está incompleto"});
     }
     
 }

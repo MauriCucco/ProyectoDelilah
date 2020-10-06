@@ -8,7 +8,7 @@ function validarEstado(req, res, next) {
 
     }else {
 
-        res.status(400).send({mensaje: "Ingrese un estado correcto"});
+        res.status(422).send({mensaje: "Ingrese un estado correcto"});
     }
 }
 

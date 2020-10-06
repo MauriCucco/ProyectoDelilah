@@ -18,7 +18,7 @@ function verificarUsuarioNuevo(req, res, next) {
 
                 }else {
 
-                    return res.status(400).send({error: "Usuario no disponible"});
+                    return res.status(422).send({error: "Usuario no disponible"});
                 }
             })
             .catch(e => {
@@ -29,12 +29,12 @@ function verificarUsuarioNuevo(req, res, next) {
 
         }else {
 
-            return res.status(400).send({error: "Hay uno o más campos inválidos"});
+            return res.status(422).send({error: "Hay uno o más campos inválidos"});
         }
 
     }else {
 
-        return res.status(400).send({error: "Ingrese todos los datos solicitados"});
+        return res.status(422).send({error: "Ingrese todos los datos solicitados"});
     }
 
 }

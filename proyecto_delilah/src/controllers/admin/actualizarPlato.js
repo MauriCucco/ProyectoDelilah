@@ -14,7 +14,7 @@ function actualizarPlato(req, res) {
             return res.status(404).send({error: "Plato no encontrado"})
         }
 
-        res.status(200).send({mensaje: "Operación exitosa"});
+        res.status(200).send({mensaje: "Plato actualizado exitosamente"});
     })
     .catch(e => {
 

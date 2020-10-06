@@ -11,7 +11,7 @@ function loginUsuario(req, res) {
         administrador
     }, jwtClave);
 
-    res.status(200).send({mensaje: "Autenticación correcta", token, id_usuario, administrador});
+    res.status(200).send({mensaje: "Autenticación exitosa", token, id_usuario, administrador});
 }
 
 module.exports = loginUsuario;

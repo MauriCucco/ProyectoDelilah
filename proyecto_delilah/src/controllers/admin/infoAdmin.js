@@ -4,12 +4,6 @@ function infoAdmin(req, res) {
 
     allInfo()
     .then(response => {
-
-        /*const arrayModificado = response.forEach(element => {
-
-
-        });*/
-
         res.status(200).send(response);
     })
     .catch(e => {

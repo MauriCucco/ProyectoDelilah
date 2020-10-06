@@ -3,9 +3,14 @@ const validarCamposUsuario = require("../../models/validarCamposUsuario");
 
 function validarUsuario (req, res, next) {
 
-    const userLogin = ({username_o_email, password} = req.body);
+    const { username_o_email, password } = req.body;
 
-    if(userLogin && Object.keys(userLogin).length === 2) {
+    const userLogin = {
+        username_o_email,
+        password
+    }
+
+    if(username_o_email && password) {
 
         if(validarCamposUsuario(userLogin)) {
 
@@ -34,12 +39,12 @@ function validarUsuario (req, res, next) {
 
         }else {
 
-            return res.status(400).send({error: "Hay uno o más campos inválidos"});
+            return res.status(422).send({error: "Hay uno o más campos inválidos"});
         }
         
     }else {
 
-        return res.status(400).send({error: "Ingrese todos los datos solicitados"});
+        return res.status(422).send({error: "Ingrese todos los datos solicitados"});
     }
 }
 

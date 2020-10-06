@@ -1,6 +1,6 @@
 function validarCamposUsuario(objeto) {
 
-    const regexUsername = /(?=^.{5,36}$)([a-zA-Z0-9\-_]+)/;
+    const regexUsername = /(?=^.{4,36}$)([a-zA-Z0-9\-_]+)/;
     const regexEmail = /\w+@+\w+\.+[a-z]/; //debe tener el formato de email
     const regexTelefono = /([a-z]?)([A-Z]?)([!"·\$%&\/()=?¿\^\*¨Ç;:_'¡`´,\.\-|@#~€¬[\]{}]?)/g; //no debe tener ninguno de estos caracteres
     const regexPassword = /(?=^.{6,36}$)((?=.*\w)(?=.*[\d])(?=.*[\W]))^.*/; //que tenga entre 6 y 36 caracteres con al menos 1 letra (minúscula o mayúscula), 1 número y 1 caracter especial

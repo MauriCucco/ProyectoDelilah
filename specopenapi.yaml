@@ -70,14 +70,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Exito'
-        400:
-          description: Formulario incompleto y/o con errores
+        401:
+          description: No se encontró ningún token de autorización
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-        401:
-          description: No se encontró ningún token de autorización
+        422:
+          description: Formulario incompleto y/o con errores
           content:
             application/json:
               schema:
@@ -113,12 +113,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EstadoPedido'
-        400:
-          description: ID inválido
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
         401:
           description: No se encontró ningún token de autorización
           content:
@@ -127,6 +121,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         404:
           description: Pedido no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        422:
+          description: ID inválido
           content:
             application/json:
               schema:
@@ -161,12 +161,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListaPlatos'
-        400:
-          description: ID inválido
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
         401:
           description: No se encontró ningún token de autorización
           content:
@@ -175,6 +169,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         404:
           description: No se encontraron platos favoritos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        422:
+          description: ID inválido
           content:
             application/json:
               schema:
@@ -208,7 +208,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExitoPostUsuario'
-        400:
+        422:
           description: Formulario incompleto y/o con errores
           content:
             application/json:
@@ -241,14 +241,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LogInExitoso'
-        400:
-          description: Formulario incompleto y/o con errores
+        404:
+          description: Usuario no econtrado
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-        404:
-          description: Usuario no econtrado
+        422:
+          description: Formulario incompleto y/o con errores
           content:
             application/json:
               schema:
@@ -328,12 +328,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Exito'
-        400:
-          description: Datos ingresados incorrectos
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
         401:
           description: No se encontró ningún token de autorización
           content:
@@ -342,6 +336,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         404:
           description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        422:
+          description: Datos ingresados incorrectos
           content:
             application/json:
               schema:
@@ -370,7 +370,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ListaAdmin'
         401:
-          description: No se encontró ningún token de autorización
+          description: No posee autorización de administrador
           content:
             application/json:
               schema:
@@ -404,14 +404,14 @@ paths:
               application/json:
                 schema:
                   $ref: '#/components/schemas/Exito'
-          400:
-            description: Falta información del plato
+          401:
+            description: No se encontró ningún token de autorización
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/Error'
-          401:
-            description: No se encontró ningún token de autorización
+          422:
+            description: Falta información del plato
             content:
               application/json:
                 schema:
@@ -445,7 +445,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Plato'
+              $ref: '#/components/schemas/PlatoActualizado'
         required: true
       responses:
         200:
@@ -454,12 +454,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Exito'
-        400:
-          description: ID inválido
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
         401:
             description: No se encontró ningún token de autorización
             content:
@@ -468,6 +462,12 @@ paths:
                   $ref: '#/components/schemas/Error'
         404:
           description: Plato no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        422:
+          description: ID inválido
           content:
             application/json:
               schema:
@@ -510,12 +510,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Exito'
-        400:
-          description: ID inválido
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
         401:
             description: No se encontró ningún token de autorización
             content:
@@ -524,6 +518,12 @@ paths:
                   $ref: '#/components/schemas/Error'
         404:
           description: Pedido no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        422:
+          description: ID inválido
           content:
             application/json:
               schema:
@@ -565,9 +565,7 @@ components:
         id_pedido: 
           type: number
         descripcion:
-          type: array
-          items:
-            $ref: '#/components/schemas/Cantidad'
+          type: string
         tipo_pago: 
           type: string
           description: Tipo de pago utilizado por el cliente
@@ -639,12 +637,23 @@ components:
     Plato:
       type: object
       properties:
-        id_plato:
-          type: integer
         nombre_plato:
           type: string
         precio:
           type: number
+    PlatoActualizado:
+      type: object
+      properties:
+        nombre_plato:
+          type: string
+        precio:
+          type: number
+        estado_plato:
+          type: string
+          description: Estado del plato
+          enum:
+          - H
+          - E
     GetListaPlatos:
       type: object
       properties:
@@ -696,8 +705,6 @@ components:
     EstadoPedido:
       type: object
       properties:
-        id_pedido:
-          type: integer
         estado_pedido:
           type: string
           description: Estado del pedido
