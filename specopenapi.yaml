@@ -194,7 +194,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Exito'
         422:
-          description: Formulario de registro incompleto y/o con errores
+          description: Formulario inválido o usuario no disponible
           content:
             application/json:
               schema:
@@ -233,7 +233,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         422:
-          description: Formulario incompleto y/o con errores
+          description: Formulario inválido
           content:
             application/json:
               schema:
@@ -251,13 +251,6 @@ paths:
       summary: Eliminar un usuario
       description: Elimina al usuario previamente logueado.
       operationId: actualizarUsuario
-      requestBody:
-        description: Objeto con el estado del cliente
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EstadoUsuario'
-        required: true
       responses:
         200:
           description: Operación exitosa
@@ -267,12 +260,6 @@ paths:
                 $ref: '#/components/schemas/Exito'
         401:
           description: No se encontró ningún token de autorización
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        422:
-          description: Datos ingresados incorrectos
           content:
             application/json:
               schema:
@@ -291,7 +278,7 @@ paths:
       tags:
       - administrador
       summary: Obtener información para el administrador
-      description: Devuelve un array con toda la información de los pedidos realizados en el día por distintos clientes
+      description: Devuelve un array con toda la información de los pedidos realizados por distintos clientes.
       operationId: infoAdmin
       responses:
         200:
@@ -319,7 +306,7 @@ paths:
         tags:
         - administrador
         summary: Subir nuevo plato
-        description: Agrega un nuevo plato a la base de datos
+        description: Agrega un nuevo plato a la base de datos.
         operationId: subirPlato
         requestBody:
           description: Objeto plato
@@ -336,13 +323,13 @@ paths:
                 schema:
                   $ref: '#/components/schemas/Exito'
           401:
-            description: No se encontró ningún token de autorización
+            description: No posee autorización de administrador
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/Error'
           422:
-            description: Falta información del plato
+            description: Formulario del plato incompleto y/o con errores
             content:
               application/json:
                 schema:
@@ -386,19 +373,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Exito'
         401:
-            description: No se encontró ningún token de autorización
+            description: No posee autorización de administrador
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/Error'
         404:
           description: Plato no encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        422:
-          description: ID inválido
           content:
             application/json:
               schema:
@@ -417,7 +398,7 @@ paths:
       tags:
       - administrador
       summary: Actualiza el estado de un pedido
-      description: Actualiza el pedido a nuevo, en preparación, en camino, entregado o cancelado.
+      description: Actualiza el estado de un pedido a nuevo, en preparación, en camino, entregado o cancelado.
       operationId: actualizarPedido
       parameters:
       - name: IdPedido
@@ -442,7 +423,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Exito'
         401:
-            description: No se encontró ningún token de autorización
+            description: No posee autorización de administrador
             content:
               application/json:
                 schema:
@@ -454,7 +435,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         422:
-          description: ID inválido
+          description: Valor ingresado inválido
           content:
             application/json:
               schema:
@@ -543,15 +524,13 @@ components:
     Cantidad:
       type: object
       properties:
-        id_plato:
+        id_plato1:
           type: integer
         cantidad:
           type: integer
     Pedido:
       type: object
       properties:
-        id_usuario:
-          type: integer
         descripcion:
           type: array
           items:
@@ -628,11 +607,6 @@ components:
         mensaje:
           type: string
         id_pedido:
-          type: integer
-    IdUsuario:
-      type: object
-      properties:
-        id_usuario:
           type: integer
     IdPedido:
       type: object

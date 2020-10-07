@@ -5,15 +5,15 @@ async function subirPedido(req, res) {
 
     try{
 
-        const { id_usuario1, descripcion, tipo_pago, total } = req.body;
+        const { id_usuario1, descripcion, tipo_pago, total } = req.pedido;
 
         const begin = await beginOrder(); //inicio la transacción
 
         const result = await newOrder([id_usuario1, tipo_pago, total]); //INSERT del pedido
 
-        const id_pedido1 = result[0]; //
+        const id_pedido = result[0]; 
 
-        descripcion.forEach( element => element["id_pedido1"] = id_pedido1); //le sumo el id del pedido
+        descripcion.forEach( element => element["id_pedido1"] = id_pedido); //le sumo el id del pedido
 
         for(let i=0; i< descripcion.length; i++) { //con un forEach no funciona
         
@@ -24,7 +24,7 @@ async function subirPedido(req, res) {
 
         const commit = await commitOrder();
 
-        res.status(200).send({mensaje: "Pedido subido con éxito", id_pedido: id_pedido1});
+        res.status(200).send({mensaje: "Pedido subido con éxito", id_pedido});
         
     }catch (error) {
 

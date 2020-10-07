@@ -3,7 +3,7 @@ const { favoritePlates } = require("../../models/plato");
 function obtenerPlatosFavoritos(req, res) {
 
     favoritePlates(req.user.id_usuario)
-    .then((response) =>  {
+    .then(([response]) =>  {
 
         response === undefined? res.status(404).send({mensaje: "No se encontraron platos favoritos"}) : res.status(200).send(response);
     })

@@ -1,20 +1,14 @@
 function validarCamposPedido(objeto) {
 
     const arrayPedido = Object.values(objeto);
-    const index = arrayPedido.findIndex( elem => elem === "");
 
-    if(index >= 0) { //si alguún campo está vacío
-
-        return false;
-
-    }else if(isNaN(objeto.id_usuario1) //si no son números
-             || isNaN(objeto.total)) {
+    if(typeof(objeto.total) !== "number"){
+    
+        return "El campo total es inválido"
+    
+    }else if(!Array.isArray(objeto.descripcion)){ //si NO es un array
         
-        return false;
-
-    }else if(!Array.isArray(objeto.descripcion)){ //si NO sea un array
-        
-        return false;
+        return "El campo descripción debe ser un array";
 
     }else if(Array.isArray(objeto.descripcion)){ //si es un array
 
@@ -24,7 +18,7 @@ function validarCamposPedido(objeto) {
 
         if(found >= 0) { //significa que hay una propiedad que falta o que está mal escrita
 
-            return false;
+            return "El campo descripción está incompleto";
 
         }else {
 
@@ -34,7 +28,7 @@ function validarCamposPedido(objeto) {
 
             if(found2 >= 0) { //significa que algún valor de las propiedades es erróneo
      
-                 return false;
+                 return "Los valores ingresados en descripción deben ser numéricos";
             }
         }
     }
@@ -43,10 +37,12 @@ function validarCamposPedido(objeto) {
         || (objeto.tipo_pago === "debito")
         || (objeto.tipo_pago === "credito")) {
 
-        return true;
-    }
+        return "NEXT";
 
-    return false;
+    }else {
+
+        return "El tipo de pago es inválido";
+    }
 }
 
 module.exports = validarCamposPedido;

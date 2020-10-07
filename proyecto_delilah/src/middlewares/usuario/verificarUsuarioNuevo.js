@@ -3,7 +3,7 @@ const validarCamposUsuario = require("../../models/validarCamposUsuario");
 
 function verificarUsuarioNuevo(req, res, next) {
 
-    const {username, nombre_completo, email, telefono, direccion, password} = req.body; 
+    const usuarioNuevo = ({username, nombre_completo, email, telefono, direccion, password} = req.body); 
 
     if(username
        && nombre_completo
@@ -12,9 +12,13 @@ function verificarUsuarioNuevo(req, res, next) {
        && direccion
        && password) { 
 
-        if(validarCamposUsuario(newUser)) { // valido los valores de los campos del registro
-        
-            verifyUser(newUser.username, newUser.email) //chequeo que no haya un usuario con el mismo username e imail registrado
+        console.log(usuarioNuevo);
+
+        const respuesta = validarCamposUsuario(usuarioNuevo); //chequeo los valores ingresados
+
+        if(respuesta === "NEXT"){
+
+            verifyUser(username, email) //chequeo que no haya un usuario con el mismo username y email registrado
             .then(([response]) => {
                 
                 response === undefined? next() : res.status(422).send({error: "Usuario no disponible"});
@@ -28,12 +32,12 @@ function verificarUsuarioNuevo(req, res, next) {
 
         }else {
 
-            res.status(422).send({error: "Hay uno o más campos inválidos"});
+            res.status(422).send({error: respuesta});
         }
 
     }else {
 
-        res.status(422).send({error: "Ingrese todos los datos solicitados"});
+        res.status(422).send({error: "Ingrese todos los campos solicitados"});
     }
 
 }

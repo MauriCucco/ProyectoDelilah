@@ -8,7 +8,7 @@ const verificarUsuarioNuevo = require("../../middlewares/usuario/verificarUsuari
 const validarUsuario = require("../../middlewares/usuario/validarUsuario");
 
 //subrutas de /usuarios
-usuario.put("/delete", validarEstado, eliminarUsuario);
+usuario.put("/delete", eliminarUsuario); //borrado lógico
 usuario.post("/registro", verificarUsuarioNuevo, crearUsuario);
 usuario.post("/login", validarUsuario, loginUsuario);
 

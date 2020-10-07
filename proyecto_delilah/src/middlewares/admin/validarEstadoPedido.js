@@ -14,12 +14,12 @@ function validarEstadoPedido(req, res, next) {
 
         }else {
 
-            res.status(422).send({error: "El campo es inválido"})
+            res.status(422).send({error: "El estado del pedido es inválido"})
         }
 
     }else {
 
-        res.status(422).send({error: "Ingrese el campo correctamente"});
+        res.status(422).send({error: "Ingrese el campo requerido correctamente"});
     }
 }
 

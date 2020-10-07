@@ -4,53 +4,32 @@ function validarPlato(req, res, next) {
 
     if(req.method === "POST") {
 
-        const { nombre_plato, precio } = req.body;
-
-        const objPlato = { 
-            nombre_plato, 
-            precio 
-        }
+        const nuevoPlato = ({ nombre_plato, precio } = req.body);
 
         if(nombre_plato && precio) {
 
-            if(validarCamposPlato(objPlato)) {
-
-                next();
-
-            }else {
-
-                res.status(422).send({error: "Hay uno o más campos inválidos"})
-            }
-
+            const respuesta = validarCamposPlato(nuevoPlato);
+            
+            (respuesta === "NEXT")? next() : res.status(422).send({error: respuesta});
+            
         }else {
 
-            res.status(422).send({error: "Ingrese todos los datos solicitados"})
+            res.status(422).send({error: "Ingrese todos los campos solicitados"});
         }
 
     }else if(req.method === "PUT") {
 
-        const { nombre_plato, precio, estado_plato } = req.body;
-
-        const objPlatoActualizado = {
-            nombre_plato,
-            precio,
-            estado_plato
-        }
+        const platoActualizado = ({ nombre_plato, precio, estado_plato } = req.body);
 
         if(nombre_plato && precio && estado_plato) {
 
-            if(validarCamposPlato(objPlatoActualizado)) {
-
-                next();
-
-            }else {
-
-                res.status(422).send({error: "Hay uno o más campos inválidos"})
-            }
+            const respuesta = validarCamposPlato(platoActualizado);
+            
+            (respuesta === "NEXT")? next() : res.status(422).send({error: respuesta});
 
         }else {
 
-            res.status(422).send({error: "Ingrese todos los datos solicitados"})
+            res.status(422).send({error: "Ingrese todos los campos solicitados"})
         }
     }
 }

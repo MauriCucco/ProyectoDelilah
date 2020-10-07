@@ -7,26 +7,26 @@ function validarCamposPlato(objeto) {
 
     if(!regexNombre.test(objeto.nombre_plato)) {
 
-        return false;
+        return "El nombre del plato es inválido";
 
     }else if(!regexPrecio.test(objeto.precio)) {
 
-        return false;
+        return "El precio del plato es inválido";
 
     }else if(arrayPlato.length === 3) {
 
         if(objeto.estado_plato === "H"
            || objeto.estado_plato === "E") {
 
-            return true;
+            return "NEXT";
 
         }else {
 
-            return false;
+            return "El estado del plato es inválido";
         }
     }
 
-    return true;
+    return "NEXT";
     
 };
 

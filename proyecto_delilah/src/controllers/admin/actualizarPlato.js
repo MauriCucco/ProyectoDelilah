@@ -5,16 +5,9 @@ function actualizarPlato(req, res) {
     const { nombre_plato, precio, estado_plato } = req.body;
 
     updatePlate([nombre_plato, precio, estado_plato, req.params.IdPlato])
-    .then((response) => { //desestructuro el response de la bd para que no devuelva un array
-
-        console.log(response)
+    .then(([response]) => { 
         
-        if(response.affectedRows === 0) { //si no afecta a ningún registro
-
-            return res.status(404).send({error: "Plato no encontrado"})
-        }
-
-        res.status(200).send({mensaje: "Plato actualizado exitosamente"});
+        response.affectedRows === 0? res.status(404).send({error: "Plato no encontrado"}) : res.status(200).send({mensaje: "Plato actualizado exitosamente"});
     })
     .catch(e => {
 
