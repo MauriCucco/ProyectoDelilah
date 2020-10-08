@@ -1,4 +1,4 @@
-DELILAH RESTÓ
+DELILAH RESTÓ (Mauricio Cucco)
 -------------
 
 1) En Visual Studio Code posicionarse dentro de la carpeta "src" que se encuentra, a su vez, dentro de la carpeta "proyecto_delilah".
@@ -9,12 +9,12 @@ Instala todas las dependencias del archivo package.json necesarias para correr t
 
 3) Crear un archivo .env con las siguientes variables de entorno dentro de la carpeta src:
 
-TKS = [elegir una clave para crear los token]
-PORT = 3000
-DB_HOST = "localhost"
-DB_USER = "root"
-DB_PORT = 3306
-DB_DATABASE = "delilahresto"
+TKS = [elegir una clave para crear los token]  
+PORT = 3000  
+DB_HOST = "localhost"  
+DB_USER = "root"  
+DB_PORT = 3306  
+DB_DATABASE = "delilahresto"  
 
 4) Dentro de la carpeta src se encuentra la carpeta "database" con un archivo llamado "creacion.sql" que contiene el código para la creación de la base de datos y de las tablas(usuarios, pedidos, platos, cantidad_platos).
 
@@ -33,11 +33,11 @@ DB_DATABASE = "delilahresto"
 
 11) Si todo sale bien debe aparecer en la consola lo siguiente:
 
-``SERVER UP!!!
-warning: please use IANA standard timezone format ('Etc/GMT0')
-warning: please use IANA standard timezone format ('Etc/GMT0')
-Executing (default): SELECT 1+1 AS result
-Connection has been established successfully.´´
+``SERVER UP!!!  
+warning: please use IANA standard timezone format ('Etc/GMT0')  
+warning: please use IANA standard timezone format ('Etc/GMT0')  
+Executing (default): SELECT 1+1 AS result  
+Connection has been established successfully.´´  
 
 
 
