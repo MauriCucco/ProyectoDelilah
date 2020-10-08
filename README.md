@@ -4,17 +4,10 @@ DELILAH RESTÓ (Mauricio Cucco)
 1) En Visual Studio Code posicionarse dentro de la carpeta "src" que se encuentra, a su vez, dentro de la carpeta "proyecto_delilah".
 
 2) Abrir la consola de VSC y escribir:
-	npm install
+	npm install  
 Instala todas las dependencias del archivo package.json necesarias para correr todo.
 
-3) Crear un archivo .env con las siguientes variables de entorno dentro de la carpeta src:
-
-TKS = [elegir una clave para crear los token]  
-PORT = 3000  
-DB_HOST = "localhost"  
-DB_USER = "root"  
-DB_PORT = 3306  
-DB_DATABASE = "delilahresto"  
+3) En el archivo ".env.example" (dentro de src) eligir un password para lo propiedad TKS y cambiar el nombre del archivo a ".env".
 
 4) Dentro de la carpeta src se encuentra la carpeta "database" con un archivo llamado "creacion.sql" que contiene el código para la creación de la base de datos y de las tablas(usuarios, pedidos, platos, cantidad_platos).
 
