@@ -6,7 +6,7 @@ async function loginUsuario(req, res) {
 
     const token = crearToken({id_usuario, administrador});
 
-    res.status(200).send({mensaje: "Autenticación exitosa", token, nombre_completo, direccion, administrador});
+    res.status(200).send({mensaje: "Autenticación exitosa", token, nombre_completo, direccion});
 }
 
 module.exports = loginUsuario;
