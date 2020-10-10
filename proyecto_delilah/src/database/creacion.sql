@@ -11,7 +11,7 @@ CREATE TABLE usuarios (
     email varchar(36) NOT NULL,
     telefono varchar(36) NOT NULL,
     direccion varchar(64) NOT NULL,
-    password varchar(36) NOT NULL,
+    password varchar(40) NOT NULL,
     estado_usuario enum("H", "E") NULL DEFAULT "H", 
     administrador enum("T", "F") NULL DEFAULT "F", 
 
@@ -27,7 +27,9 @@ CREATE TABLE pedidos (
     total decimal(8,2) unsigned NOT NULL,
     estado_pedido enum("nuevo", "en preparacion", "en camino", "entregado", "cancelado") NULL DEFAULT "nuevo",
 
-    primary key(id_pedido)
+    primary key(id_pedido),
+    CONSTRAINT FK_UsuarioPedido FOREIGN KEY (id_usuario1)
+    REFERENCES usuarios(id_usuario)
 
 ) ENGINE=InnoDB;
 
