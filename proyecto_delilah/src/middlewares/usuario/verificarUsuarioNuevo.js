@@ -12,8 +12,6 @@ function verificarUsuarioNuevo(req, res, next) {
        && direccion
        && password) { 
 
-        console.log(usuarioNuevo);
-
         const respuesta = validarCamposUsuario(usuarioNuevo); //chequeo los valores ingresados
 
         if(respuesta === "NEXT"){

@@ -177,7 +177,7 @@ paths:
       tags:
       - usuario
       summary: Crear un usuario nuevo
-      description: Para poder registrarse, el usuario debe ingresar username, nombre completo, email, telefono, direccion y password.
+      description: Para poder registrarse, el usuario debe ingresar username, nombre completo, email, telefono, direccion y password. El username debe tener entre 4 y 36 caracteres de tipo alfanumérico y/o guión bajo o guión medio. El password debe tener entre 6 y 36 caracteres con al menos 1 letra (minúscula o mayúscula), 1 número y 1 caracter especial.
       operationId: crearUsuario
       requestBody:
         description: Objeto nuevo usuario
@@ -393,6 +393,44 @@ paths:
       security:
       - bearerAuth: []
       x-codegen-request-body-name: body
+    delete:
+      tags:
+      - administrador
+      summary: Eliminar un plato
+      description: Elimina (físicamente) un plato de la base de datos por su ID.
+      parameters:
+      - name: IdPlato
+        in: path
+        description: ID del plato
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exito'
+        401:
+            description: No posee autorización de administrador
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+        404:
+          description: Plato no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /admin/pedido/estado/{IdPedido}:
     put:
       tags:
@@ -449,6 +487,45 @@ paths:
       security:
       - bearerAuth: []
       x-codegen-request-body-name: body
+  /admin/pedido/{IdPedido}:
+    delete:
+      tags:
+      - administrador
+      summary: Eliminar un pedido
+      description: Elimina (físicamente) un pedido de la base de datos por su ID.
+      parameters:
+      - name: IdPedido
+        in: path
+        description: ID del pedido
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Exito'
+        401:
+            description: No posee autorización de administrador
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+        404:
+          description: Pedido no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   securitySchemes:
     bearerAuth:            
@@ -510,6 +587,8 @@ components:
       properties:
         username:
           type: string
+          minimum: 4 
+          maximum: 36
         nombre_completo:
           type: string
         email:
@@ -521,6 +600,8 @@ components:
         password:
           type: string
           format: password
+          minimum: 6 
+          maximum: 36
     Cantidad:
       type: object
       properties:

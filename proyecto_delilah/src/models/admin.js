@@ -6,11 +6,20 @@ const uploadPlate = (arrayNuevoPlato) => sequelize.query("INSERT INTO platos (no
 
 const updatePlate = (arrayPlatoActualizado) => sequelize.query("UPDATE platos SET nombre_plato = ?, precio = ?, estado_plato = ? WHERE id_plato = ?", { replacements: arrayPlatoActualizado });
 
+const deletePlate = (idPlato) => sequelize.query("DELETE FROM platos WHERE id_plato = ?", { replacements: [idPlato] });
+
 const updateOrder = (arrayEstadoPedido) => sequelize.query("UPDATE pedidos SET estado_pedido = ? WHERE id_pedido = ?", { replacements: arrayEstadoPedido });
+
+const deleteOrder = (idPedido, transaction) => sequelize.query("DELETE FROM pedidos WHERE id_pedido = ?", { replacements: [idPedido], transaction });
+
+const deletePlatesAmount = (idPedido1, transaction) => sequelize.query("DELETE FROM cantidad_platos WHERE id_pedido1 = ?", { replacements: [idPedido1], transaction });
 
 module.exports = {
     allInfo,
     uploadPlate,
     updatePlate,
-    updateOrder
+    deletePlate,
+    updateOrder,
+    deleteOrder,
+    deletePlatesAmount
 }
