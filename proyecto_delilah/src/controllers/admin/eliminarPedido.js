@@ -11,7 +11,9 @@ const eliminarPedido = async (req, res) => {
 
         if(ordenEliminada.affectedRows === 0) throw "Pedido no encontrado";
         
-        const cantidadPlatosEliminada = await deletePlatesAmount(req.params.IdPedido, transaction);
+        const [cantidadPlatosEliminada] = await deletePlatesAmount(req.params.IdPedido, transaction);
+
+        if(cantidadPlatosEliminada.affectedRows === 0) throw "Error en cantidad_platos";
 
         await transaction.commit();
 
@@ -20,7 +22,7 @@ const eliminarPedido = async (req, res) => {
     }catch(error){
 
         await transaction.rollback();
-        error === "Pedido no encontrado"? res.status(422). send({error}) : res.status(500).send({error: "Error del servidor"});
+        error === "Pedido no encontrado" || "Error en cantidad_platos"? res.status(422). send({error}) : res.status(500).send({error: "Error del servidor"});
     }
 }
 
