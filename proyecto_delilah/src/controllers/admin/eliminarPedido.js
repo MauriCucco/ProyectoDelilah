@@ -22,7 +22,7 @@ const eliminarPedido = async (req, res) => {
     }catch(error){
 
         await transaction.rollback();
-        error === "Pedido no encontrado" || "Error en cantidad_platos"? res.status(422). send({error}) : res.status(500).send({error: "Error del servidor"});
+        (error === "Pedido no encontrado" || error === "Error en cantidad_platos") ? res.status(422). send({error}) : res.status(500).send({error: "Error del servidor"});
     }
 }
 
