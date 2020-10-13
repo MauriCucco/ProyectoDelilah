@@ -10,7 +10,7 @@ const eliminarPlato = (req, res) => {
     .catch(e => {
 
         console.log(e);
-        res.status(500).send({error: "Error del servidor"});
+        e.name === 'SequelizeForeignKeyConstraintError'? res.status(500).send({error: "El plato que quiere eliminar fue usado en un pedido"}) : res.status(500).send({error: "Error del servidor"});
     })
 }
 

@@ -27,7 +27,7 @@ CREATE TABLE pedidos (
     total decimal(8,2) unsigned NOT NULL,
     estado_pedido enum("nuevo", "en preparacion", "en camino", "entregado", "cancelado") NULL DEFAULT "nuevo",
 
-    primary key(id_pedido),
+    PRIMARY KEY(id_pedido),
     CONSTRAINT FK_UsuarioPedido FOREIGN KEY (id_usuario1)
     REFERENCES usuarios(id_usuario)
 
@@ -39,7 +39,7 @@ CREATE TABLE platos (
     precio decimal(8,2) unsigned NOT NULL,
     estado_plato enum("H", "E") NULL DEFAULT "H",
 
-    primary key(id_plato)
+    PRIMARY KEY(id_plato)
 
 ) ENGINE=InnoDB;
 
@@ -48,6 +48,8 @@ CREATE TABLE cantidad_platos (
     id_plato1 int(11) NOT NULL,
     cantidad int(11) unsigned NOT NULL,
 
-    primary key(id_pedido1, id_plato1)
+    PRIMARY KEY(id_pedido1, id_plato1),
+    CONSTRAINT FK_CantidadPedido FOREIGN KEY (id_pedido1) REFERENCES pedidos(id_pedido),
+    CONSTRAINT FK_CantidadPlato FOREIGN KEY (id_plato1) REFERENCES platos(id_plato)
 
 ) ENGINE=InnoDB;
