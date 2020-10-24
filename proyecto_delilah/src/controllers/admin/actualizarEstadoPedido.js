@@ -1,4 +1,4 @@
-const { updateOrder } = require("../../models/admin");
+const { updateOrder } = require("../../models/pedido");
 
 function actualizarEstadoPedido(req, res) {
 

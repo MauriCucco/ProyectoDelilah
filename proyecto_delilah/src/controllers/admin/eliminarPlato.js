@@ -1,4 +1,4 @@
-const { deletePlate } = require("../../models/admin")
+const { deletePlate } = require("../../models/plato")
 
 const eliminarPlato = (req, res) => {
 

@@ -1,4 +1,4 @@
-const { updatePlate } = require("../../models/admin")
+const { updatePlate } = require("../../models/plato")
 
 function actualizarPlato(req, res) {
 

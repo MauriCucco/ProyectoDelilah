@@ -1,5 +1,6 @@
 const sequelize = require("../../config/db");
-const { deleteOrder, deletePlatesAmount } = require("../../models/admin");
+const { deleteOrder } = require("../../models/pedido")
+const { deletePlatesAmount } = require("../../models/cantidad_platos");
 
 const eliminarPedido = async (req, res) => {
 

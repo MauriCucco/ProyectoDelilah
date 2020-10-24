@@ -1,4 +1,4 @@
-const { uploadPlate } = require("../../models/admin");
+const { uploadPlate } = require("../../models/plato");
 
 function subirPlato(req, res) {
 

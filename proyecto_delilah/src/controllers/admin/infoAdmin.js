@@ -1,4 +1,4 @@
-const { allInfo } = require("../../models/admin")
+const { allInfo } = require("../../services/admin")
 
 function infoAdmin(req, res) {
 

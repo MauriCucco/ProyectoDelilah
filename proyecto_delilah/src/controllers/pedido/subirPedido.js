@@ -1,5 +1,6 @@
-const { newOrder, beginOrder, commitOrder, rollbackOrder } = require("../../models/pedido");
+const { newOrder } = require("../../models/pedido");
 const { newDishesNumber } = require("../../models/cantidad_platos");
+const { beginOrder, commitOrder, rollbackOrder} = require("../../services/transaction")
 
 async function subirPedido(req, res) {
 

@@ -4,16 +4,13 @@ const newOrder = (arrayPedidoNuevo) => sequelize.query("INSERT INTO pedidos (id_
 
 const stateOrder = (id_pedido) => sequelize.query("SELECT estado_pedido FROM pedidos WHERE id_pedido = ?", { replacements: [id_pedido], type: sequelize.QueryTypes.SELECT});
 
-const beginOrder = () => sequelize.query("BEGIN");
+const updateOrder = (arrayEstadoPedido) => sequelize.query("UPDATE pedidos SET estado_pedido = ? WHERE id_pedido = ?", { replacements: arrayEstadoPedido });
 
-const commitOrder = () => sequelize.query("COMMIT");
-
-const rollbackOrder = () => sequelize.query("ROLLBACK");
+const deleteOrder = (idPedido, transaction) => sequelize.query("DELETE FROM pedidos WHERE id_pedido = ?", { replacements: [idPedido], transaction });
 
 module.exports = {
     newOrder,
     stateOrder,
-    beginOrder,
-    commitOrder,
-    rollbackOrder
+    updateOrder,
+    deleteOrder
 }
