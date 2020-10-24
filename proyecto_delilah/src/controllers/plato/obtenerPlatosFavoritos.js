@@ -1,6 +1,6 @@
 const { favoritePlates } = require("../../models/plato");
 
-function obtenerPlatosFavoritos(req, res) {
+const obtenerPlatosFavoritos = (req, res) => 
 
     favoritePlates(req.user.id_usuario)
     .then(([response]) =>  {
@@ -12,6 +12,6 @@ function obtenerPlatosFavoritos(req, res) {
         console.log(e);
         res.status(500).send({mensaje: "Error del servidor"});
     })
-}
+
 
 module.exports = obtenerPlatosFavoritos;

@@ -1,6 +1,6 @@
 const { uploadPlate } = require("../../models/plato");
 
-function subirPlato(req, res) {
+const subirPlato = (req, res) => {
 
     const { nombre_plato, precio } = req.body;
 

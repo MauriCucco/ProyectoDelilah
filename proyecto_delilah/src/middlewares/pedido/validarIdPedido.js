@@ -1,4 +1,5 @@
-function validarIdPedido(req, res, next) {
+
+const validarIdPedido = (req, res, next) => {
 
     const { id_pedido } = req.body;
 

@@ -1,6 +1,6 @@
 const { updateOrder } = require("../../models/pedido");
 
-function actualizarEstadoPedido(req, res) {
+const actualizarEstadoPedido = (req, res) => 
 
     updateOrder([req.body.estado_pedido, req.params.IdPedido])
     .then(([response]) => { 
@@ -12,6 +12,6 @@ function actualizarEstadoPedido(req, res) {
         console.log(e);
         res.status(500).send({error: "Error del servidor"});
     })
-}
+
 
 module.exports = actualizarEstadoPedido;

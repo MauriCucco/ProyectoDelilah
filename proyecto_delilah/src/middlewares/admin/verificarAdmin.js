@@ -1,4 +1,5 @@
-function verificarAdmin(req, res, next) {
+
+const verificarAdmin = (req, res, next) => {
     
     if(req.user.administrador === "T") {
 

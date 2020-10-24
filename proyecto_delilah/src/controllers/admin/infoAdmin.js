@@ -1,6 +1,6 @@
 const { allInfo } = require("../../services/admin")
 
-function infoAdmin(req, res) {
+const infoAdmin = (req, res) => 
 
     allInfo()
     .then(response => {
@@ -10,6 +10,6 @@ function infoAdmin(req, res) {
         console.log(e);
         res.status(500).send({mensaje: "Error del servidor"});
     })
-}
+
 
 module.exports = infoAdmin;

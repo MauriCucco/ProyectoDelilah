@@ -1,4 +1,5 @@
-function validarEstadoPedido(req, res, next) {
+
+const validarEstadoPedido = (req, res, next) => {
 
     const { estado_pedido } = req.body;
 

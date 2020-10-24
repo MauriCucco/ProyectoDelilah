@@ -1,6 +1,6 @@
 const { updatePlate } = require("../../models/plato")
 
-function actualizarPlato(req, res) {
+const actualizarPlato = (req, res) => {
 
     const { nombre_plato, precio, estado_plato } = req.body;
 

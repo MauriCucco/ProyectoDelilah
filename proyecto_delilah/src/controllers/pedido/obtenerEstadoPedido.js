@@ -1,6 +1,6 @@
 const { stateOrder } = require("../../models/pedido");
 
-function obtenerEstadoPedido(req, res) {
+const obtenerEstadoPedido = (req, res) =>
 
     stateOrder(req.body.id_pedido)
     .then(([response]) =>  {
@@ -11,6 +11,6 @@ function obtenerEstadoPedido(req, res) {
         console.log(e);
         res.status(500).send({mensaje: "Error del servidor"});
     })
-}
+
 
 module.exports = obtenerEstadoPedido;

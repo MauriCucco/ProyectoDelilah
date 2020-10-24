@@ -1,10 +1,10 @@
 
-function notFound(req, res) {
+const notFound = (req, res) =>
 
     res.status(404).send({error: "La página solicitada no existe"})
-}
 
-function errorServidor (err, req, res, next) {
+
+const errorServidor = (err, req, res, next) => {
 
     if (!err) { //no hay error
         return next();    
@@ -12,7 +12,7 @@ function errorServidor (err, req, res, next) {
 
     console.log(err);
 
-    if (err.name === 'UnauthorizedError') { //no se encontró un token
+    if (err.name === 'UnauthorizedError') { //no se encontró un token (lo devuelve el express-jwt)
 
         return res.status(401).send({error: "No se encontró un token de autorización"});
     }

@@ -1,6 +1,6 @@
 const { newUser } = require("../../models/usuario");
 
-function crearUsuario(req, res) {
+const crearUsuario = (req, res) => {
 
     const arrayUsuarioNuevo = Object.values(req.body); //devuelve un array con las valores de un objeto
 

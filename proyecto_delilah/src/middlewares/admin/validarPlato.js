@@ -1,6 +1,6 @@
 const validarCamposPlato = require("../../models/ValidarCamposPlato");
 
-function validarPlato(req, res, next) {
+const validarPlato = (req, res, next) => {
 
     if(req.method === "POST") {
 

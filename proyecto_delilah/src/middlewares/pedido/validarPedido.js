@@ -1,6 +1,6 @@
 const validarCamposPedido = require("../../models/validarCamposPedido");
 
-function validarPedido(req, res, next) {
+const validarPedido = (req, res, next) => {
 
     const nuevoPedido = ({ descripcion, tipo_pago, total } = req.body);
 
