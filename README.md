@@ -27,8 +27,6 @@ DELILAH RESTÓ (Mauricio Cucco)
 11) Si todo sale bien debe aparecer en la consola lo siguiente:
 
 ``SERVER UP!!!  
-warning: please use IANA standard timezone format ('Etc/GMT0')  
-warning: please use IANA standard timezone format ('Etc/GMT0')  
 Executing (default): SELECT 1+1 AS result  
 Connection has been established successfully.´´  
 

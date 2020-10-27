@@ -5,6 +5,8 @@ function verificarUsuarioNuevo(req, res, next) {
 
     const usuarioNuevo = ({username, nombre_completo, email, telefono, direccion, password} = req.body); 
 
+    console.log(req.body);
+
     if(username
        && nombre_completo
        && email

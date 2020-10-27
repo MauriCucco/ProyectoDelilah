@@ -1,7 +1,8 @@
-const crearToken = require("../../models/crearToken");
+const { crearToken } = require("../../models/crearToken");
 
 const loginUsuario = (req, res) => {
     try {
+
         const {id_usuario, nombre_completo, direccion, administrador} = req.infoUsuario;
     
         const token = crearToken({id_usuario, administrador});
@@ -10,7 +11,7 @@ const loginUsuario = (req, res) => {
         
     } catch (error) {
         
-        res.status(401).send(error);
+        res.status(401).send({error});
     }
 }
 

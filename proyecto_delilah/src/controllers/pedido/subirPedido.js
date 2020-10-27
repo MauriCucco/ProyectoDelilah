@@ -10,9 +10,7 @@ const subirPedido = async (req, res) => {
 
         const begin = await beginOrder(); //inicio la transacción
 
-        const result = await newOrder([id_usuario1, tipo_pago, total]); //INSERT del pedido
-
-        const id_pedido = result[0]; 
+        const [id_pedido] = await newOrder([id_usuario1, tipo_pago, total]); //INSERT del pedido
 
         descripcion.forEach( element => element["id_pedido1"] = id_pedido); //le sumo el id del pedido
 

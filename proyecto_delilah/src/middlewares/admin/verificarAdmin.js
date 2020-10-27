@@ -1,6 +1,6 @@
 
 const verificarAdmin = (req, res, next) => {
-    
+
     if(req.user.administrador === "T") {
 
         next();

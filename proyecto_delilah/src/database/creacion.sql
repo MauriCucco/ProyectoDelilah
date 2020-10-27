@@ -12,7 +12,10 @@ CREATE TABLE usuarios (
     telefono varchar(36) NOT NULL,
     direccion varchar(64) NOT NULL,
     password varchar(40) NOT NULL,
-    estado_usuario enum("H", "E") NULL DEFAULT "H", 
+    estado_usuario enum("H", "E") NULL DEFAULT "H",
+    uuid_correo varchar(100) NULL,
+    token_correo varchar(100) NULL,
+    habilitado_correo tinyint NULL DEFAULT 0,
     administrador enum("T", "F") NULL DEFAULT "F", 
 
     primary key(id_usuario)
