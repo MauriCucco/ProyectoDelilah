@@ -14,7 +14,7 @@ const subirPedido = async (req, res) => {
 
         descripcion.forEach( element => element["id_pedido1"] = id_pedido); //le sumo el id del pedido
 
-        for(let i=0; i< descripcion.length; i++) { //con un forEach no funciona
+        for(let i=0; i< descripcion.length; i++) { //en un forEach tengo que usar async en el callback y usar otro try-catch dentro y un throw
         
             let insert = await newDishesNumber(Object.values(descripcion[i])); //INSERT en cantidad_platos
 
