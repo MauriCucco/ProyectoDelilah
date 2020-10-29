@@ -1,4 +1,4 @@
-# DELILAH RESTÓ
+DELILAH RESTÓ
 -------------
 Ésta aplicación corresponde al tercer proyecto de mi cursada en Acámica, en el cual tuve que construir una API REST de una casa de comidas ficticia llamada "Delilah Restó" y su correspondiente documentación. 
 
