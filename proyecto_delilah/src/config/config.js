@@ -12,14 +12,14 @@ const mailPass = process.env.CORREO_PASSWORD;
 const urlConfirm = process.env.URL_CONFIRM;
 
 module.exports = {
-    jwtClave,
-    puerto,
-    host,
-    user,
-    dbPort,
-    database, 
-    service,   
-    mailUser,
-    mailPass,
-    urlConfirm
-}
+  jwtClave,
+  puerto,
+  host,
+  user,
+  dbPort,
+  database,
+  service,
+  mailUser,
+  mailPass,
+  urlConfirm,
+};
